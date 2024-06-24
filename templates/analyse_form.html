@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysis Form</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='base.css') }}"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <style>
+      .sample-data-table {
+        margin-top: 50px;
+      }
+    </style>
+    <script></script>
+  </head>
+
+  <body>
+    <header class="top-header">
+      <nav>
+        <div class="wrapper">
+          <div style="display: flex">
+            <img src="/static/favicon.ico" style="padding-right: 10px" />
+            <div class="logo"><a href="#">A1 Agri Global Limited</a></div>
+          </div>
+          <ul class="nav-links">
+            <li><a href="/home">Home</a></li>
+            <li>
+              <a href="#" class="desktop-item">Unanalysed Samples : <var id = "var1"></var></a>
+              <input type="checkbox" id="showDrop" />
+              <label for="showDrop" class="mobile-item"
+                >Unanalysed Samples </label
+              >
+              <ul class="sample-id-list drop-menu"></ul>
+            </li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="small-container"></div>
+      <div class="header">
+        <h3>Analysis Form</h3>
+      </div>
+
+      <form id="analysisForm" action="/submit_analysis" method="post">
+        <div class="form-row_1">
+          <div class="form-group">
+            <label for="analysisID">Analysis ID:</label>
+            <input type="text" id="analysisID" name="analysisID" readonly />
+          </div>
+          <div class="form-group">
+            <label for="userID">User ID:</label>
+            <input
+              type="text"
+              id="userID"
+              name="userID"
+              value="{{ userid }}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="userName">User Name:</label>
+            <input
+              type="text"
+              id="userName"
+              name="userName"
+              value="{{ username }}"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="material">Material:</label>
+            <input
+              type="text"
+              id="material"
+              name="material"
+              readonly
+              required
+            />
+          </div>
+        </div>
+        <div class="form-row_2">
+          <div class="form-group">
+            <label for="sampleID">Sample ID:</label>
+            <select
+              type="text"
+              id="sampleID"
+              name="sampleID"
+              onchange="populateval();"
+              required
+            ></select>
+          </div>
+          <div class="form-group">
+            <label for="lab">LabID:</label>
+            <select id="lab" name="lab" required></select>
+          </div>
+          <div class="form-group">
+            <label for="labName">Lab Name:</label>
+            <input type="text" id="labName" name="labName" readonly />
+          </div>
+          <div class="form-group">
+            <label for="testType">Test Type:</label>
+            <select id="testType" name="testType" required>
+              <option value="">--Select--</option>
+              <option value="manual">Manual</option>
+              <option value="nir">NIR</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group parameters-group">
+          <div id="m_C" style="display: none">
+            <label for="M_C">M/C</label>
+            <input type="number" step="0.01" id="M_C" name="M_C" value="" />
+          </div>
+          <div id="o_C" style="display: none">
+            <label for="O_C">O/C</label>
+            <input type="number" step="0.01" id="O_C" name="O_C" />
+          </div>
+          <div id="fFA" style="display: none">
+            <label for="FFA">FFA </label>
+            <input type="number" step="0.01" id="FFA" name="FFA" />
+          </div>
+          <div id="cLR" style="display: none">
+            <label for="CLR">CLR</label>
+            <input type="number" step="0.01" id="CLR" name="CLR" />
+          </div>
+          <div id="fM" style="display: none">
+            <label for="FM">FM</label>
+            <input type="number" step="0.01" id="FM" name="FM" />
+          </div>
+          <div id="sS" style="display: none">
+            <label for="SS">S/S</label>
+            <input type="number" step="0.01" id="SS" name="SS" />
+          </div>
+          <div id="proTein" style="display: none">
+            <label for="protein">Protein</label>
+            <input type="number" step="0.01" id="protein" name="protein" />
+          </div>
+          <div id="sV" style="display: none">
+            <label for="SV">SV</label>
+            <input type="number" step="0.01" id="SV" name="SV" value="" />
+          </div>
+          <div id="iV" style="display: none">
+            <label for="IV">IV</label>
+            <input type="number" step="0.01" id="IV" name="IV" />
+          </div>
+          <div id="mIV" style="display: none">
+            <label for="MIV">MIV</label>
+            <input type="number" step="0.01" id="MIV" name="MIV" />
+          </div>
+          <div id="eO" style="display: none">
+            <label for="EO">EO</label>
+            <input type="number" step="0.01" id="EO" name="EO" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="remarks">Remarks:</label>
+          <input type="text" id="remarks" name="remarks" />
+        </div>
+        <div id="button-container" class="button-container">
+          <div id="currentTime"></div>
+          <input
+            type="submit"
+            value="Submit"
+            class="submit-btn"
+            style="font-size: 18px"
+          />
+          <input
+            type="button"
+            value="Clear"
+            class="clear-btn"
+            style="font-size: 18px"
+            onclick="clearForm()"
+          />
+        </div>
+      </form>
+
+      <div id="last_data">
+        <table id="sampleDataTable" class="table">
+          <h3>Last sample enteries</h3>
+          <thead>
+            <tr>
+              <th>AnalysisID</th>
+              <th>SampleID</th>
+              <th>Lab</th>
+              <th>TestType</th>
+              <th>UserID</th>
+              <th>Material</th>
+              <th>MC</th>
+              <th>OC</th>
+              <th>FFA</th>
+              <th>FM</th>
+              <th>SS</th>
+              <th>Protein</th>
+              <th>CLR</th>
+              <th>MIV</th>
+              <th>EO</th>
+              <th>IV</th>
+              <th>SV</th>
+              <th>DateTime</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var serialNoInput = document.getElementById("analysisID");
+
+        fetch("/get_analysis_id")
+          .then((response) => response.json())
+          .then((data) => {
+            var newAnalysisID = generateAnalysisID(data);
+            serialNoInput.value = newAnalysisID;
+          })
+          .catch((error) =>
+            console.error("Error fetching last Analysis ID:", error)
+          );
+      });
+
+      function generateAnalysisID(lastNumericID) {
+        return lastNumericID + 1;
+      }
+
+      function clearForm() {
+        document.getElementById("sampleID").value = "";
+        document.getElementById("testType").value = "";
+        document.getElementById("lab").value = "";
+        document.getElementById("material").value = "";
+        document.getElementById("remarks").value = "";
+        document.getElementById("labName").value = "";
+        const parameterFields = [
+          "M_C",
+          "O_C",
+          "FFA",
+          "CLR",
+          "FM",
+          "SS",
+          "protein",
+          "MIV",
+          "EO",
+          "IV",
+          "SV",
+        ];
+
+        parameterFields.forEach((field) => {
+          document.getElementById(field).value = "";
+          document.getElementById(field).parentElement.style.display = "none";
+        });
+
+        populatesample();
+      }
+
+      document.querySelector(".clear-btn").addEventListener("click", clearForm);
+
+      document.addEventListener("DOMContentLoaded", function () {
+        clearForm();
+        populatesample();
+      });
+
+      function updateCurrentTime() {
+        var currentTimeElement = document.getElementById("currentTime");
+        var now = new Date();
+        var dateString = now.toLocaleDateString();
+        var timeString = now.toLocaleTimeString();
+        currentTimeElement.textContent = dateString + " " + timeString;
+      }
+      updateCurrentTime();
+      setInterval(updateCurrentTime, 1000);
+
+      function populatelab_name() {
+        fetch("/get_lab_name")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const labselect = document.getElementById("lab");
+             
+            data.forEach((lab) => {
+              const option = document.createElement("option");
+              option.value = lab;
+              option.textContent = lab;
+              labselect.appendChild(option);
+            });
+            populatname();
+          })
+
+          .catch((error) => {
+            console.error("Error fetching lab names:", error);
+          });
+      }
+      function populatesample() {
+        fetch("/get_sample_id")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const sampleselect = document.getElementById("sampleID");
+            sampleselect.innerHTML = '<option value="">--Select--</option>';
+            data.forEach((sampleID) => {
+              const option = document.createElement("option");
+              option.value = sampleID;
+              option.textContent = sampleID;
+              sampleselect.appendChild(option);
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching sampler IDs:", error);
+          });
+      }
+      function populateunsample() {
+        fetch("/unanalys_sample_id")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok: " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const dropMenu = document.querySelector(
+              ".sample-id-list.drop-menu"
+            );
+            dropMenu.innerHTML = "";
+            const list = document.createElement("ul");
+            list.classList.add("sample-id-list");
+            data.forEach((sampleID) => {
+              const listItem = document.createElement("li");
+              listItem.textContent = sampleID;
+              listItem.addEventListener("click", () => {
+          document.getElementById("sampleID").value = sampleID;
+          populateval();
+          $("#sampleID").trigger('change');
+          document.getElementById("showDrop").checked = false;  
+        });
+              list.appendChild(listItem);
+            });
+            dropMenu.appendChild(list);
+            const unanalyzedIdCount = data.length;
+            document.getElementById("var1").innerText = unanalyzedIdCount;
+          })
+          .catch((error) => {
+            console.error("Error fetching sample IDs:", error);
+          });
+      }
+      //don't touch upper part
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // console.log('DOM fully loaded and parsed');
+        populatelab_name();
+        populatesample();
+        populateunsample();
+      });
+      // DONT TOUCH
+
+      function populatname() {
+        var lab = document.getElementById("lab").value;
+        var labName = document.getElementById("labName");
+
+        fetch(`/get_lab?lab=${lab}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // console.log(data)
+            labName.value = data;
+          })
+          .catch((error) => console.error("Error fetching values:", error));
+      }
+
+      document.getElementById("lab").addEventListener("change", () => {
+        populatname();
+      });
+
+      $("#analysisForm").keydown(function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          return false;
+        }
+      });
+
+      $(document).ready(function () {
+        $("#analysisForm").submit(function (event) {
+          event.preventDefault();
+
+          // Gather form data
+          var userID = $("#userID").val();
+          var userName = $("#userName").val();
+          var analysisID = $("#analysisID").val();
+          var lab = $("#lab").val();
+          var labName = $("#labName").val();
+          var sampleID = $("#sampleID").val();
+          var material = $("#material").val();
+          var testType = $("#testType").val();
+          var M_C = $("#M_C").val();
+          var O_C = $("#O_C").val();
+          var FFA = $("#FFA").val();
+          var CLR = $("#CLR").val();
+          var FM = $("#FM").val();
+          var protein = $("#protein").val();
+          var SS = $("#SS").val();
+          var MIV = $("#MIV").val();
+          var EO = $("#EO").val();
+          var IV = $("#IV").val();
+          var SV = $("#SV").val();
+          var remarks = $("#remarks").val();
+
+          var confirmationMessage = `Are you sure you want to submit the following details?\n
+                                   AnalysisID: ${analysisID}\n
+                                   Lab: ${lab}\n
+                                   Sample ID: ${sampleID}\n
+                                   User ID: ${userID}\n
+                                   Material: ${material}\n
+                                   TestType: ${testType}\n
+                                   M/C: ${M_C}\n
+                                   O/C: ${O_C}\n
+                                   FFA: ${FFA}\n
+                                   CLR: ${CLR}\n
+                                   FM: ${FM}\n
+                                   Protein: ${protein}\n
+                                   S/S: ${SS}\n
+                                   MIV: ${MIV}\n
+                                   EO: ${EO}\n
+                                   IV: ${IV}\n
+                                   SV: ${SV}\n
+                                   Remarks: ${remarks}`;
+
+          if (!confirm(confirmationMessage)) {
+            console.log("Form submission cancelled");
+            return false;
+          }
+
+          var formData = $(this).serialize();
+
+          $.ajax({
+            type: "POST",
+            url: "/submit_analysis",
+            data: formData,
+            success: function (response) {
+              window.location.href = "/success2";
+            },
+            error: function (xhr, status, error) {
+              console.error("Error: " + error);
+              window.location.href = "/error";
+            },
+          });
+        });
+      });
+
+      $(document).ready(function () {
+        $("#sampleID").select2({
+          width: "resolve",
+          height: "50px",
+        });
+      });
+
+      //
+
+      function populateval() {
+        var sampleID = document.getElementById("sampleID").value;
+        var material = document.getElementById("material");
+        var M_C = document.getElementById("m_C");
+        var O_C = document.getElementById("o_C");
+        var FFA = document.getElementById("fFA");
+        var CLR = document.getElementById("cLR");
+        var FM = document.getElementById("fM");
+        var protein = document.getElementById("proTein");
+        var SS = document.getElementById("sS");
+        var MIV = document.getElementById("mIV");
+        var EO = document.getElementById("eO");
+        var IV = document.getElementById("iV");
+        var SV = document.getElementById("sV");
+
+        fetch(`/get_values?sampleID=${sampleID}`)
+          .then((response) => response.json())
+          .then((data) => {
+            material.value = data[0];
+            M_C.style.display = data.includes("M/C") ? "block" : "none";
+            O_C.style.display = data.includes("O/C") ? "block" : "none";
+            FFA.style.display = data.includes("FFA") ? "block" : "none";
+            FM.style.display = data.includes("FM") ? "block" : "none";
+            SS.style.display = data.includes("S/S") ? "block" : "none";
+            CLR.style.display = data.includes("CLR") ? "block" : "none";
+            protein.style.display = data.includes("PROTIEN") ? "block" : "none";
+            EO.style.display = data.includes("EO") ? "block" : "none";
+            MIV.style.display = data.includes("MIV") ? "block" : "none";
+            IV.style.display = data.includes("IV") ? "block" : "none";
+            SV.style.display = data.includes("SV") ? "block" : "none";
+
+            populatePlaceholder();
+            populateRemark();
+          })
+          .catch((error) => console.error("Error fetching values:", error));
+      }
+
+      document
+        .getElementById("sampleID")
+        .addEventListener("change", populateval);
+
+      $(document).ready(function () {
+        fetch("/fetch_data")
+          .then((response) => {
+            // console.log('Response Status:', response.status);  // Debug log
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.error) {
+              console.error("Error fetching data:", data.error);
+              return;
+            }
+            const tableBody = $("#sampleDataTable tbody");
+            tableBody.empty();
+            data.forEach((row) => {
+              const tableRow = `
+                                <tr>
+                                    <td>${row.AnalysisID || ""}</td>
+                                    <td>${row.SampleID || ""}</td>
+                                    <td>${row.Lab || ""}</td>
+                                    <td>${row.TestType || ""}</td>
+                                    <td>${row.UserID || ""}</td>
+                                    <td>${row.Material || ""}</td>
+                                    <td>${row.MC || ""}</td>
+                                    <td>${row.OC || ""}</td>
+                                    <td>${row.FFA || ""}</td>
+                                    <td>${row.FM || ""}</td>
+                                    <td>${row.SS || ""}</td>
+                                    <td>${row.Protein || ""}</td>
+                                    <td>${row.CLR || ""}</td>
+                                    <td>${row.MIV || ""}</td>
+                                    <td>${row.EO || ""}</td>
+                                    <td>${row.IV || ""}</td>
+                                    <td>${row.SV || ""}</td>
+                                    <td>${row.DateTime || ""}</td>
+                                    <td>${row.Remarks || ""}</td>
+                                </tr>`;
+              tableBody.append(tableRow);
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      });
+    </script>
+    <script>
+      var fetchlim = {};
+      function populatePlaceholder() {
+        var material = document.getElementById("material").value;
+        var parameterFields = {
+          M_C: document.getElementById("M_C"),
+          O_C: document.getElementById("O_C"),
+          FFA: document.getElementById("FFA"),
+          CLR: document.getElementById("CLR"),
+          FM: document.getElementById("FM"),
+          PROTEIN: document.getElementById("protein"),
+          SS: document.getElementById("SS"),
+          MIV: document.getElementById("MIV"),
+          EO: document.getElementById("EO"),
+          IV: document.getElementById("IV"),
+          SV: document.getElementById("SV"),
+        };
+
+        // console.log("Fetching limits for material:", material);
+
+        fetch(`/get_limits?material=${material}&_=${new Date().getTime()}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.error) {
+              console.error("Error:", data.error);
+              alert(data.error);
+              return;
+            }
+
+            // console.log('Limits data received:', data);
+
+            Object.keys(parameterFields).forEach((key) => {
+              const field = parameterFields[key];
+              field.setAttribute("placeholder", "");
+            });
+            fetchlim = {};
+            data.forEach((item) => {
+              const value = item[0];
+              const min = item[1] !== null ? item[1] : "N/A";
+              const max = item[2] !== null ? item[2] : "N/A";
+
+              fetchlim[value] = [min, max];
+              if (parameterFields[value]) {
+                const field = parameterFields[value];
+                field.setAttribute("placeholder", `Min: ${min}, Max: ${max}`);
+              }
+            });
+          })
+          .catch((error) => console.error("Error fetching limits:", error));
+      }
+
+      //   document.getElementById("material").addEventListener("change", () => {
+      //     // console.log("Material changed to:", document.getElementById("material").value);
+      //     populatePlaceholder();
+      //   });
+      function populateRemark() {
+        var parameterFields = {
+          M_C: document.getElementById("M_C"),
+          O_C: document.getElementById("O_C"),
+          FFA: document.getElementById("FFA"),
+          CLR: document.getElementById("CLR"),
+          FM: document.getElementById("FM"),
+          PROTEIN: document.getElementById("protein"),
+          SS: document.getElementById("SS"),
+          MIV: document.getElementById("MIV"),
+          EO: document.getElementById("EO"),
+          IV: document.getElementById("IV"),
+          SV: document.getElementById("SV"),
+        };
+
+        var remarksField = document.getElementById("remarks");
+        remarksField.value = "";
+
+        Object.keys(parameterFields).forEach((key) => {
+          const field = parameterFields[key];
+          const value = parseFloat(field.value);
+          const limits = fetchlim[key];
+          console.log(
+            "whoever reading this i was warkig as intern when i did this project have fun changing what u deemed unnecessary feel free to connect in linkdin"
+          );
+          if (!isNaN(value) && limits) {
+            if (limits[0] !== null && value < limits[0]) {
+              remarksField.value += `${key} value ${value} is less than minimum limit ${limits[0]}. `;
+            } else if (limits[1] !== null && value > limits[1]) {
+              remarksField.value += `${key} value ${value} is greater than maximum limit ${limits[1]}. `;
+            } else {
+              remarksField.value += `${key} value ${value} is within limits. `;
+            }
+          }
+        });
+      }
+      var inputFields = document.querySelectorAll("input[type='number']");
+      inputFields.forEach((field) => {
+        field.addEventListener("blur", () => {
+          populateRemark();
+        });
+      });
+    </script>
+  </body>
+</html>

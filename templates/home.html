@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(circle at 30% 86%, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.03) 8%, transparent 8%, transparent 92%), radial-gradient(circle at 55% 100%, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.03) 8%, transparent 8%, transparent 92%), radial-gradient(circle at 40% 75%, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.03) 6%, transparent 6%, transparent 94%), radial-gradient(circle at 7% 99%, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.03) 6%, transparent 6%, transparent 94%), radial-gradient(circle at 69% 76%, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.03) 6%, transparent 6%, transparent 94%), radial-gradient(circle at 2% 35%, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.03) 6%, transparent 6%, transparent 94%), radial-gradient(circle at 14% 48%, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.03) 6%, transparent 6%, transparent 94%), radial-gradient(circle at 28% 87%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.04) 4%, transparent 4%, transparent 96%), radial-gradient(circle at 65% 14%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.04) 4%, transparent 4%, transparent 96%), radial-gradient(circle at 51% 36%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.04) 4%, transparent 4%, transparent 96%), radial-gradient(circle at 6% 93%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.04) 4%, transparent 4%, transparent 96%), linear-gradient(135deg, #17e9ad, #1d18d0);
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        .dashboard-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .dashboard-container h1 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-container .btn {
+            margin: 10px;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+            width: 80%;
+        }
+
+        .dashboard-container .btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        header.bg-primary {
+            background-color: #007bff !important;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .navbar-dark .navbar-brand {
+            color: #fff;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+<body id="page-top">
+     
+    <!-- Header-->
+    <header class="bg-primary bg-gradient text-white">
+        <div class="container px-4 text-center">
+            
+            <h1 class="fw-bolder">Welcome {{ username }}</h1>
+            <p class="lead">Your central hub for managing and analyzing data.</p>
+    
+        </div>
+    </header>
+    <!-- Dashboard section-->
+    <section id="dashboard">
+        <div class="container px-4">
+            <div class="dashboard-container">
+                 
+                <a href="/sample_form" class="btn btn-lg">Sample Form</a><br>
+                <a href="/analyse_form" class="btn btn-lg">Analysis Form</a><br>
+                <a href="/daily_analysis_report" class="btn btn-lg">Daily Analysis Report</a><br>
+                <a href="/M_C_analysis_report" class="btn btn-lg">M/C Analysis Report</a><br>
+                <a href="/O_C_analysis_report" class="btn btn-lg">O/C Analysis Report</a><br>
+                <a href="/logout" class="btn btn-lg">Logout</a>
+            </div>
+        </div>
+    </section>
+    <!-- About section
+    <section id="about">
+        <div class="container px-4">
+            <div class="row gx-4 justify-content-center">
+                <div class="col-lg-8">
+                    <h2>About this Dashboard</h2>
+                    <p class="lead">This dashboard is designed to help you manage and analyze your data efficiently. It features a user-friendly interface and easy access to various functionalities.</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- Contact section-->
+    <!-- <section id="contact">
+        <div class="container px-4">
+            <div class="row gx-4 justify-content-center">
+                <div class="col-lg-8">
+                    <h2>Contact us</h2>
+                    <p class="lead">If you have any questions or need support, feel free to contact us. We are here to help you get the most out of your dashboard experience.</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container px-4">
+            <p class="m-0 text-center text-white"></p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

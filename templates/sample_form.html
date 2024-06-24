@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample Form</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../static/style.css" />
+  </head>
+
+  <body>
+    <header class="top-header">
+      <nav>
+        <div class="wrapper">
+          <div style="display: flex">
+            <img src="/static/favicon.ico" style="padding-right: 10px" />
+            <div class="logo"><a href="#">A1 Agri Global Limited</a></div>
+          </div>
+
+          <ul class="nav-links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="header">
+        <h3>Sample Form</h3>
+      </div>
+      <div class="small-container">
+        <form id="sampleForm" action="/submit_sample" method="post">
+          <div class="form-row_1">
+            <div class="form-group">
+              <label for="sampleID">Sample ID:</label>
+              <input type="text" id="sampleID" name="sampleID" readonly />
+            </div>
+            <div class="form-group">
+              <label for="userID">User ID:</label>
+              <input
+                type="text"
+                id="userID"
+                name="userID"
+                value="{{ userid }}"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="userName">User Name:</label>
+              <input
+                type="text"
+                id="userName"
+                name="userName"
+                value="{{ username }}"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label for="lab">LabID:</label>
+              <select id="lab" name="lab" required></select>
+            </div>
+            <div class="form-group">
+              <label for="labName">Lab Name:</label>
+              <input type="text" id="labName" name="labName" readonly />
+            </div>
+          </div>
+          <div class="form-row_2">
+            <div class="form-group">
+              <label for="samplerID">Sampler ID:</label>
+              <select id="samplerID" name="samplerID" required></select>
+            </div>
+            <div class="form-group">
+              <label for="samplerName">Sampler Name:</label>
+              <input type="text" id="samplerName" name="samplerName" readonly />
+            </div>
+            <div class="form-group">
+              <label for="datetime">Collection Date & Time:</label>
+              <input
+                type="datetime-local"
+                id="datetime"
+                name="datetime"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="material">Material:</label>
+              <select
+                id="material"
+                name="material"
+                onchange="updateSamplePoints(); populateTests()"
+                required
+              ></select>
+            </div>
+          </div>
+          <div class="form-row_3">
+            <div class="form-group">
+              <label for="sampleType">Sample Type:</label>
+              <select id="sampleType" name="sampleType" required>
+                <option value="">--Select--</option>
+                <option value="Running">Running</option>
+                <option value="Lot">Lot</option>
+                <option value="PreSample">PreSample</option>
+                <option value="Composite">Composite</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="samplePoint">Sample Point:</label>
+              <select id="samplePoint" name="samplePoint" required></select>
+            </div>
+            <div class="form-group">
+              <label for="qtyMt">QtyMt:</label>
+              <input
+                type="number"
+                step="0.01"
+                id="qtyMt"
+                name="qtyMt"
+                placeholder="Quantity in metric ton"
+                min="0"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="tst">Test required:</label>
+              <select id="tst" name="tst" required>
+                <option value="">--Select--</option>
+                <option value="standard">Standard</option>
+                <option value="noneStandard">None Standard</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row_4">
+            <div id="additional1" class="form-group" style="display: none">
+              <label for="partyName">Party Name:</label>
+              <input
+                type="text"
+                id="partyName"
+                name="partyName"
+                oninput="this.value = this.value.toUpperCase()"
+              />
+            </div>
+            <div id="additional2" class="form-group" style="display: none">
+              <label for="batchID">BatchID/VhNo.:</label>
+              <input
+                type="text"
+                id="batchID"
+                name="batchID"
+                placeholder="e.g A032/24-25,GP0795,RJ02GB8681"
+                oninput="this.value = this.value.toUpperCase()"
+              />
+            </div>
+          </div>
+
+          <div class="form-group" id="noneStandard" style="display: none">
+            <div id="testReqCheckboxes"></div>
+          </div>
+          <div class="form-row_5">
+            <div class="form-group parameters-group">
+              <div>
+                <label for="parameter_1"></label>
+                <input
+                  type="text"
+                  id="parameter_1"
+                  name="parameter_1"
+                  readonly
+                />
+              </div>
+              <div>
+                <label for="parameter_2"></label>
+                <input
+                  type="text"
+                  id="parameter_2"
+                  name="parameter_2"
+                  readonly
+                />
+              </div>
+              <div>
+                <label for="parameter_3"></label>
+                <input
+                  type="text"
+                  id="parameter_3"
+                  name="parameter_3"
+                  readonly
+                />
+              </div>
+              <div>
+                <label for="parameter_4"></label>
+                <input
+                  type="text"
+                  id="parameter_4"
+                  name="parameter_4"
+                  readonly
+                />
+              </div>
+              <div>
+                <label for="parameter_5"></label>
+                <input
+                  type="text"
+                  id="parameter_5"
+                  name="parameter_5"
+                  readonly
+                />
+              </div>
+              <div>
+                <label for="parameter_6"></label>
+                <input
+                  type="text"
+                  id="parameter_6"
+                  name="parameter_6"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+          <div id="button-container" class="button-container">
+            <div id="currentTime"></div>
+            <input
+              type="submit"
+              value="Submit"
+              class="submit-btn"
+              style="font-size: 18px"
+            />
+            <input
+              type="button"
+              value="Clear"
+              class="clear-btn"
+              style="font-size: 18px"
+              onclick="clearForm()"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      function getCurrentDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+      }
+
+      window.onload = function () {
+        document.getElementById("datetime").value = getCurrentDateTime();
+      };
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var today = new Date().toISOString().split("T")[0];
+        var time = "T23:59";
+
+        document.getElementById("datetime").setAttribute("max", today + time);
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var serialNoInput = document.getElementById("sampleID");
+
+        fetch("/get_last_sample_id")
+          .then((response) => response.json())
+          .then((data) => {
+            var newSampleID = generateSampleID(data);
+            serialNoInput.value = newSampleID;
+          })
+          .catch((error) =>
+            console.error("Error fetching last Sample ID:", error)
+          );
+      });
+
+      function generateSampleID(lastNumericID) {
+        return lastNumericID + 1;
+      }
+
+      function populate() {
+        document
+          .getElementById("sampleType")
+          .addEventListener("change", function () {
+            var sampleType = this.value;
+            var additional1 = document.getElementById("additional1");
+            var additional2 = document.getElementById("additional2");
+
+            if (sampleType === "PreSample") {
+              additional1.style.display = "block";
+              additional2.style.display = "block";
+            } else if (sampleType === "Lot") {
+              additional2.style.display = "block";
+              additional1.style.display = "none";
+            } else {
+              additional1.style.display = "none";
+              additional2.style.display = "none";
+            }
+          });
+        var sampleTypeDropdown = document.getElementById("sampleType");
+        sampleTypeDropdown.value = "";
+      }
+      populate();
+
+      function clearForm() {
+        document.getElementById("lab").value = "";
+        document.getElementById("samplerName").value = "";
+        document.getElementById("samplerID").value = "";
+        document.getElementById("labName").value = "";
+        document.getElementById("datetime").value = "";
+        document.getElementById("material").value = "";
+        document.getElementById("samplePoint").value = "";
+        document.getElementById("sampleType").value = "";
+        document.getElementById("qtyMt").value = "";
+        document.getElementById("testReqCheckboxes").innerHTML = "";
+        document.getElementById("tst").value = "";
+        document.getElementById("partyName").value = "";
+        document.getElementById("batchID").value = "";
+        document.getElementById("parameter_1").value = "";
+        document.getElementById("parameter_2").value = "";
+        document.getElementById("parameter_3").value = "";
+        document.getElementById("parameter_4").value = "";
+        document.getElementById("parameter_5").value = "";
+        document.getElementById("parameter_6").value = "";
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        clearForm();
+      });
+      function updateCurrentTime() {
+        var currentTimeElement = document.getElementById("currentTime");
+        var now = new Date();
+        var dateString = now.toLocaleDateString();
+        var timeString = now.toLocaleTimeString();
+        currentTimeElement.textContent = dateString + " " + timeString;
+      }
+      updateCurrentTime();
+      setInterval(updateCurrentTime, 1000);
+
+      function populateMaterials() {
+        fetch("/get_materials")
+          .then((response) => response.json())
+          .then((data) => {
+            const materialSelect = document.getElementById("material");
+            materialSelect.innerHTML = '<option value="">--Select--</option>';
+            data.forEach((material) => {
+              const option = document.createElement("option");
+              option.value = material;
+              option.textContent = material;
+              materialSelect.appendChild(option);
+            });
+          });
+      }
+
+      function updateSamplePoints() {
+        const material = document.getElementById("material").value;
+        if (!material) return;
+
+        fetch(`/get_sample_points?material=${material}`)
+          .then((response) => response.json())
+          .then((data) => {
+            const samplePointSelect = document.getElementById("samplePoint");
+            samplePointSelect.innerHTML =
+              '<option value="">--Select--</option>';
+            data.forEach((samplePoint) => {
+              const option = document.createElement("option");
+              option.value = samplePoint;
+              option.textContent = samplePoint;
+              samplePointSelect.appendChild(option);
+            });
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        populateMaterials();
+      });
+    </script>
+    <script>
+      function populateTests() {
+        var material = document.getElementById("material").value;
+        var testReqCheckboxes = document.getElementById("testReqCheckboxes");
+        var tst = document.getElementById("tst").value;
+        testReqCheckboxes.innerHTML = "";
+
+        fetch(`/get_test_req?material=${material}`)
+          .then((response) => response.json())
+          .then((tests) => {
+            tests.forEach((test, index) => {
+              if (test) {
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "testReqCheckbox";
+                checkbox.value = test;
+                checkbox.id = "testReqCheckbox" + index;
+
+                var label = document.createElement("label");
+                label.htmlFor = "testReqCheckbox" + index;
+                label.appendChild(document.createTextNode(test));
+
+                testReqCheckboxes.appendChild(checkbox);
+                testReqCheckboxes.appendChild(label);
+                testReqCheckboxes.appendChild(document.createElement("br"));
+              }
+            });
+          });
+      }
+
+      function updateParameters() {
+        var checkboxes = document.querySelectorAll(
+          '[name="testReqCheckbox"]:checked'
+        );
+        var parameters = document.querySelectorAll('[id^="parameter_"]');
+
+        parameters.forEach((parameter) => {
+          parameter.value = "";
+        });
+
+        checkboxes.forEach((checkbox, index) => {
+          if (checkbox) {
+            parameters[index].value = checkbox.value;
+          }
+        });
+      }
+
+      document.addEventListener("change", function (event) {
+        if (event.target.name === "testReqCheckbox") {
+          updateParameters();
+        } else if (
+          event.target.id === "tst" ||
+          event.target.id === "material" ||
+          event.target.id === "sampleType"
+        ) {
+          updateParameters();
+        }
+      });
+
+      function populatettype() {
+        document.getElementById("tst").addEventListener("change", function () {
+          var tst = this.value;
+          var noneStandard = document.getElementById("noneStandard");
+
+          if (tst === "noneStandard") {
+            noneStandard.style.display = "block";
+          } else {
+            noneStandard.style.display = "none";
+          }
+        });
+        var test = document.getElementById("tst");
+        test.value = "";
+      }
+
+      populatettype();
+      function populatestdtest() {
+        function updateParameters() {
+          var tst = document.getElementById("tst").value;
+          if (tst === "standard") {
+            var materialElement = document.getElementById("material");
+            var sampleTypeElement = document.getElementById("sampleType");
+
+            var material = materialElement.value;
+            var sampleType = sampleTypeElement.value;
+            var parameters = document.querySelectorAll('[id^="parameter_"]');
+
+            fetch(`/get_std_test?material=${material}&sampleType=${sampleType}`)
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+                return response.json();
+              })
+              .then((tests) => {
+                console.log("Fetched tests:", tests);
+
+                tests.forEach((test, index) => {
+                  if (parameters[index]) {
+                    parameters[index].value = test != null ? test : "";
+                  } else {
+                    console.warn(
+                      `No parameter field found for index: ${index}`
+                    );
+                  }
+                });
+              })
+              .catch((error) => {
+                console.error("Error fetching standard test data:", error);
+              });
+          }
+        }
+
+        document
+          .getElementById("tst")
+          .addEventListener("change", updateParameters);
+        document
+          .getElementById("material")
+          .addEventListener("change", updateParameters);
+        document
+          .getElementById("sampleType")
+          .addEventListener("change", updateParameters);
+      }
+
+      populatestdtest();
+      function handleSampleTypeChange() {
+        document
+          .getElementById("sampleType")
+          .addEventListener("change", function () {
+            var sampleType = this.value;
+            var tst = document.getElementById("tst");
+            var noneStandardSection = document.getElementById("noneStandard");
+
+            if (sampleType === "Composite") {
+              tst.value = "noneStandard";
+              tst.disabled = true;
+              noneStandardSection.style.display = "block";
+            } else {
+              tst.disabled = false;
+              tst.value = "";
+              noneStandardSection.style.display =
+                tst.value === "noneStandard" ? "block" : "none";
+            }
+          });
+      }
+      handleSampleTypeChange();
+    </script>
+
+    <script>
+      function populatelab_name() {
+        fetch("/get_lab_name")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Lab data:", data);
+            const labselect = document.getElementById("lab");
+
+            data.forEach((lab) => {
+              const option = document.createElement("option");
+              option.value = lab;
+              option.textContent = lab;
+              labselect.appendChild(option);
+            });
+            populatname();
+          })
+          .catch((error) => {
+            console.error("Error fetching lab names:", error);
+          });
+      }
+      function getCurrentTimeBasedDefault() {
+        const nowh = new Date();
+        const hour = nowh.getHours();
+        //  '2' if night (6 PM to 6 AM) and '3' if morning (6 AM to 6 PM)
+        return hour >= 18 || hour < 6 ? 2 : 3;
+      }
+      function populatesampler() {
+        fetch("/get_sampler")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const samplerselect = document.getElementById("samplerID");
+
+            data.forEach((samplerID) => {
+              const option = document.createElement("option");
+              option.value = samplerID;
+              option.textContent = samplerID;
+              samplerselect.appendChild(option);
+            });
+            const defaultValue = getCurrentTimeBasedDefault();
+            if (data.includes(defaultValue)) {
+              samplerselect.value = defaultValue;
+            }
+            populatsamplername();
+          })
+          .catch((error) => {
+            console.error("Error fetching sampler IDs:", error);
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("DOM fully loaded and parsed");
+        populatelab_name();
+        populatesampler();
+      });
+      function populatsamplername() {
+        var samplerID = document.getElementById("samplerID").value;
+        var samplerName = document.getElementById("samplerName");
+
+        fetch(`/get_sam?samplerID=${samplerID}`)
+          .then((response) => response.json())
+          .then((data) => {
+            samplerName.value = data;
+          })
+          .catch((error) => console.error("Error fetching values:", error));
+      }
+
+      document.getElementById("samplerID").addEventListener("change", () => {
+        populatsamplername();
+      });
+      function populatname() {
+        var lab = document.getElementById("lab").value;
+        var labName = document.getElementById("labName");
+
+        fetch(`/get_lab?lab=${lab}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // console.log(data)
+            labName.value = data;
+          })
+          .catch((error) => console.error("Error fetching values:", error));
+      }
+
+      document.getElementById("lab").addEventListener("change", () => {
+        populatname();
+      });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script></script>
+    <script>
+      // Prevent form submission on Enter key press
+      $("#sampleForm").keydown(function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          return false;
+        }
+      });
+
+      $(document).ready(function () {
+        $("#sampleForm").submit(function (event) {
+          event.preventDefault();
+
+          var lab = $("#lab").val();
+          var sampleID = $("#sampleID").val();
+          var datetime = $("#datetime").val();
+          var userID = $("#userID").val();
+          var material = $("#material").val();
+          var samplePoint = $("#samplePoint").val();
+          var qtyMt = $("#qtyMt").val();
+          var partyName = $("#partyName").val();
+          var batchID = $("#batchID").val();
+          var parameter_1 = $("#parameter_1").val();
+          var parameter_2 = $("#parameter_2").val();
+          var parameter_3 = $("#parameter_3").val();
+          var parameter_4 = $("#parameter_4").val();
+          var parameter_5 = $("#parameter_5").val();
+          var parameter_6 = $("#parameter_6").val();
+
+          var confirmationMessage = `Are you sure you want to submit the following details?\n
+                                   Lab: ${lab}\n
+                                   Sample ID: ${sampleID}\n
+                                   Date & Time: ${datetime}\n
+                                   User ID: ${userID}\n
+                                   Material: ${material}\n
+                                   Sample Point: ${samplePoint}\n
+                                   Quantity: ${qtyMt}\n
+                                   Party Name: ${partyName}\n
+                                   Batch ID: ${batchID}\n
+                                   Parameter 1: ${parameter_1}\n
+                                   Parameter 2: ${parameter_2}\n
+                                   Parameter 3: ${parameter_3}\n
+                                   Parameter 4: ${parameter_4}\n
+                                   Parameter 5: ${parameter_5}\n
+                                   Parameter 6: ${parameter_6}`;
+
+          if (!confirm(confirmationMessage)) {
+            console.log("Form submission cancelled");
+            return false;
+          }
+
+          var formData = $(this).serialize();
+
+          $.ajax({
+            type: "POST",
+            url: "/submit_sample",
+            data: formData,
+            success: function (response) {
+              window.location.href = "/success";
+            },
+            error: function (xhr, status, error) {
+              console.error("Error: " + error);
+              window.location.href = "/error";
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

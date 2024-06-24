@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+    }
+
+
+    h1 {
+    font-size: 90px;
+    color: #ed0c0c;
+    margin-bottom: 20px;
+    }
+
+    .error h1 {
+    color: #E74C3C;
+    }
+
+    p {
+    margin: 10px 0;
+    font-size: 16px;
+    }
+
+    p strong {
+    color: #333;
+    }
+
+    button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    }
+
+    button:hover {
+    background-color: #45a049;
+    }
+
+    </style>
+</head>
+<body>
+    <h1>An Error Occurred</h1>
+    <p>{{ error_message }}</p>
+    <a href="/home">home</a>
+    <a href="/logout">Logout</a>
+</body>
+</html>
+ 

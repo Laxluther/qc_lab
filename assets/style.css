@@ -1,0 +1,47 @@
+.link-button, .print-button, .p-button {
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    border-style: solid;
+    border-color: black;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    display: flex;   
+    align-items: center;  
+    height: 35px;   
+    box-sizing: border-box;
+}
+
+I{
+    padding-right: 5PX;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    gap: 9px;  
+}
+
+
+@media print {
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+    @page {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        size: landscape !important;
+    }
+    .button-container {
+         display: none;
+
+    }
+    #box{
+        display: none !important;
+    }
+
+}

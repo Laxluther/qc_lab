@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Submission Successful</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+        }
+        .container { 
+            width: 75%; 
+            margin: auto; 
+            text-align: center; 
+        }
+        table { 
+              
+            border-collapse: collapse; 
+            width: 80%; 
+        }
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 8px; 
+        }
+        th { 
+            background-color: #f2f2f2; 
+        }
+        .button { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            margin: 10px; 
+            font-size: 16px; 
+            color: white; 
+            background-color: blue; 
+            border: none; 
+            border-radius: 5px; 
+            text-align: center; 
+            text-decoration: none; 
+            cursor: pointer; 
+        }
+        .button:hover { 
+            background-color: darkblue; 
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Form Submission Successful</h1>
+        <p>Submission Time: {{ submission_time }}</p>
+        <h2>Submitted Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th><strong>AnalaysisID</strong></th>
+                    <th><strong>sampleID</strong></th>
+                    <th><strong>lab</strong></th>
+                    <th><strong>TestType</strong></th>
+                    <th><strong>userID</strong></th>
+                    <th><strong>material</strong></th>
+                    <th><strong>M/C</strong></th>
+                    <th><strong>O/C</strong></th>
+                    <th><strong>FFA</strong></th>
+                    <th><strong>FM</strong></th>
+                    <th><strong>S/S</strong></th>
+                    <th><strong>PROTEIN</strong></th>
+                    <th><strong>CLR</strong></th>
+                    <th><strong>MIV</strong></th>
+                    <th><strong>EO</strong></th>
+                    <th><strong>IV</strong></th>
+                    <th><strong>SV</strong></th>
+                    <th><strong>Date/Time</strong></th>
+                    <th><strong>Remarks</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="width: auto;">
+                    <td>{{ data.analysisID }}</td>
+                    <td>{{ data.sampleID }}</td>
+                    <td>{{ data.lab }}</td>
+                    <td>{{ data.testType }}</td>
+                    <td>{{ data.userID }}</td>
+                    <td>{{ data.material }}</td>
+                    <td>{{ data.M_C }}</td>
+                    <td>{{ data.O_C }}</td>
+                    <td>{{ data.FFA }}</td>
+                    <td>{{ data.FM }}</td>
+                    <td>{{ data.SS }}</td>
+                    <td>{{ data.protein }}</td>
+                    <td>{{ data.CLR }}</td>
+                    <td>{{ data.MIV }}</td>
+                    <td>{{ data.EO }}</td>
+                    <td>{{ data.IV }}</td>
+                    <td>{{ data.SV }}</td>
+                    <td>{{ submission_time }}</td>
+                    <td>{{ data.remarks }}</td>
+                </tr>   
+            </tbody>
+        </table>
+        <div class="button-container">
+            <a href="/home" class="button">Home</a>
+            <a href="/logout" class="button">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

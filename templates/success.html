@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Submission Successful</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: blue;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Form Submission Successful</h1>
+    <p>Submission Time: {{ submission_time }}</p>
+    <h2>Submitted Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <tr>
+                    <th><strong>sampleID</strong></th>
+                    <th><strong>SamplerID</strong></th>
+                    <th><strong>datetime</strong></th>
+                    <th><strong>lab</strong></th>
+                    <th><strong>userID</strong></th>
+                    <th><strong>material</strong></th>
+                    <th><strong>sampleType</strong></th>
+                    <th><strong>batchID</strong></th>
+                    <th><strong>partyName</strong></th>
+                    <th><strong>samplePoint</strong></th>
+                    <th><strong>qtyMt</strong></th>
+                    <th><strong>testReqCheckbox</strong></th>
+                    <th><strong>parameter_1</strong></th>
+                    <th><strong>parameter_2</strong></th>
+                    <th><strong>parameter_3</strong></th>
+                    <th><strong>parameter_4</strong></th>
+                    <th><strong>parameter_5</strong></th>
+                    <th><strong>parameter_6</strong></th>
+                     
+                </tr>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                 
+                
+                <td>{{ data.sampleID }}</td>
+                <td>{{ data.samplerID }}</td>
+                <td>{{ data.datetime }}</td>
+                <td>{{ data.lab }}</td>
+                <td>{{ data.userID }}</td>
+                <td>{{ data.material }}</td>
+                <td>{{ data.sampleType }}</td>
+                <td>{{ data.batchID }}</td>  
+                <td>{{ data.partyName }}</td>
+                <td>{{ data.samplePoint }}</td>
+                <td>{{ data.qtyMt }}Mt</td>
+                <td>{{ data.tst }}</td>
+                <td>{{ data.parameter_1 }}</td>
+                <td>{{ data.parameter_2 }}</td>
+                <td>{{ data.parameter_3 }}</td>
+                <td>{{ data.parameter_4 }}</td>
+                <td>{{ data.parameter_5 }}</td>
+                <td>{{ data.parameter_6 }}</td>
+            </tr>
+            
+           
+            
+            
+        </tbody>
+    </table>
+    <a href="/home" class="button">Home</a>
+    <a href="/logout" class="button">Logout</a>
+</body>
+</html>
+
+
