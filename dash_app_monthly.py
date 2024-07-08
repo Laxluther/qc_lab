@@ -26,7 +26,7 @@ class DailyReportDashboardMonthly:
         cursor = conn.cursor()
         sql = """SELECT s.SampleID,s.Date_Time, a.TestType, a.Material, a.M_C, a.O_C, a.FFA, a.CLR, a.MIV, a.EO, a.IV, a.SV
                 FROM SampleReg s
-                INNER JOIN AnalysisReg a ON s.sampleid = a.sampleid
+                INNER JOIN AnalysisReg a ON s.sampleid = a.sampleid WHERE s.SampleType = 'Running'
                 ORDER BY s.Date_Time DESC;
                 """
         cursor.execute(sql)

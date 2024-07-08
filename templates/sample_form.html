@@ -554,8 +554,8 @@
       function getCurrentTimeBasedDefault() {
         const nowh = new Date();
         const hour = nowh.getHours();
-        //  '2' if night (6 PM to 6 AM) and '3' if morning (6 AM to 6 PM)
-        return hour >= 18 || hour < 6 ? 2 : 3;
+        //  '7' if night (6 PM to 6 AM) and '5' if morning (6 AM to 6 PM)
+        return hour >= 18 || hour < 6 ? 7 : 5;
       }
       function populatesampler() {
         fetch("/get_sampler")

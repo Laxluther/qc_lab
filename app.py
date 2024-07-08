@@ -4,9 +4,10 @@ from datetime import datetime
 from db_connection import get_db_connection
 import mysql.connector
 from dash_app import DailyReportDashboard
-from plot_mc_app import MCAnalysisDashboard
-from plot_oc_app import OCAnalysisDashboard
 from dash_app_monthly import DailyReportDashboardMonthly
+from dispatch_report import DispatchDashboard
+from comb import CombinedDashboard
+from monthlyDispatch import DispatchMonthly
 app = Flask(__name__)
 app.secret_key = '28'
 
@@ -41,7 +42,13 @@ def home():
         return render_template('home.html', username=user_name)
     else:
         return redirect(url_for('login'))
-
+@app.route('/reports')
+def report():
+    if 'user' in session:
+        user_name = db_ops.get_user_name(session['user']).title()
+        return render_template('reports.html', username=user_name)
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():
@@ -328,7 +335,8 @@ def error():
 
 dash_app = DailyReportDashboard(app)
 dash_app_monthly = DailyReportDashboardMonthly(app)
-plot_oc_app = OCAnalysisDashboard(app)
-plot_mc_app = MCAnalysisDashboard(app)
+dispatch_dashboard = DispatchDashboard(app)
+plot_app = CombinedDashboard(app)
+dispatch_monthly = DispatchMonthly(app)
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,9 +3,9 @@ import mysql.connector
 
 def get_db_connection():
     config = {
-        "user": "lax",         
+        "user": "root",         
         "password": "Sanidhya@28", 
-        "host": "qc-lab.mysql.database.azure.com",         
+        "host": "localhost",         
         "database": "qc_lab"  
     }
     return mysql.connector.connect(**config)

@@ -122,7 +122,7 @@ class DatabaseOperations:
         conn = self.get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-        "SELECT Value, Min, Max, Min_Lim, Max_lim FROM L_TstCd WHERE PRODUCT = %s", (material,))
+        "SELECT Value, Min, Max FROM L_TstCd WHERE PRODUCT = %s", (material,))
         limits = cursor.fetchall()
         conn.close()
         return [list(row) for row in limits]
@@ -134,7 +134,7 @@ class DatabaseOperations:
         cursor.execute("""
             SELECT SampleID 
             FROM samplereg 
-            WHERE SampleID NOT IN (SELECT SampleID FROM analysisreg)    
+            WHERE SampleID NOT IN (SELECT SampleID FROM analysisreg) and SampleID > 1000 
         """)
         sample_ids = [row[0] for row in cursor.fetchall()]
         conn.close()

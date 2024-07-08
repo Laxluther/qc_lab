@@ -35,6 +35,8 @@ class OCAnalysisDashboard:
             "BTE-NIR", "NIR-BTE")
         analysis_data['TestType'] = analysis_data['TestType'].replace(
             "manual", "MANUAL")
+        analysis_data['TestType'] = analysis_data['TestType'].replace(
+            "nir", "NIR")
         analysis_data = analysis_data[analysis_data['Material'] != 'KGMO']
         self.cursor.close()
         self.conn.close()
@@ -62,7 +64,6 @@ class OCAnalysisDashboard:
                         style={'textAlign': 'center', 'fontWeight': 'bold', 'flex': '1'}),
 
             ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'space-between', 'width': '100%', 'margin': '10px'}),
-
             html.Div([
                 html.Div([
                     html.Label('Material'),
@@ -124,9 +125,9 @@ class OCAnalysisDashboard:
                         end_date=self.analysis_data['Date_Time'].max(
                         ).date(),
                         display_format='DD-MM-YYYY',
-                        style={'font-size': 'inherit'}
+                        style={'font-size': '2px'}
                     )
-                ], style={'width': '20%', 'display': 'flex', 'flex-direction': 'column'}),
+                ], style={'width': '20%','display': 'flex','flex-direction': 'column'}),
             ], style={'display': 'flex', 'gap': '10px', 'width': '100%', 'fontWeight': 'bold', 'font-size': 'inherit', 'margin': '10px'}),
 
             html.Button('Reset', id='reset-button', n_clicks=0, style={
@@ -208,9 +209,9 @@ class OCAnalysisDashboard:
             Lab = Lab or self.analysis_data['LabID'].unique().tolist()
             TestType = TestType or self.analysis_data['TestType'].unique(
             ).tolist()
-            start_date = start_date or self.analysis_data['Date_Time_Stmp'].min(
+            start_date = start_date or self.analysis_data['Date_Time'].min(
             ).date()
-            end_date = end_date or self.analysis_data['Date_Time_Stmp'].max(
+            end_date = end_date or self.analysis_data['Date_Time'].max(
             ).date()
 
             filtered_data = self.analysis_data[
@@ -218,8 +219,8 @@ class OCAnalysisDashboard:
                 (self.analysis_data['SampleType'].isin(sampletype)) &
                 (self.analysis_data['LabID'].isin(Lab)) &
                 (self.analysis_data['TestType'].isin(TestType)) &
-                (self.analysis_data['Date_Time_Stmp'] >= pd.Timestamp(start_date)) &
-                (self.analysis_data['Date_Time_Stmp']
+                (self.analysis_data['Date_Time'] >= pd.Timestamp(start_date)) &
+                (self.analysis_data['Date_Time']
                  <= pd.Timestamp(end_date))
             ]
 
@@ -227,19 +228,13 @@ class OCAnalysisDashboard:
                 raise KeyError("Column 'O_C' not found in the data")
 
             average_data = filtered_data.groupby([pd.Grouper(
-                key='Date_Time_Stmp', freq='D'), 'SampleType']).agg({'O_C': 'mean'}).reset_index()
+                key='Date_Time', freq='D'), 'SampleType']).agg({'O_C': 'mean'}).reset_index()
 
-            fig = px.line(average_data, x='Date_Time_Stmp', y='O_C', color='SampleType',
+            fig = px.line(average_data, x='Date_Time', y='O_C', color='SampleType',
                           title='O/C and Sample by Date and SampleType', markers=True, height=700)
 
             fig.update_traces(mode='lines+markers', line_shape='spline')
-            fig.update_traces(
-                mode='lines+markers',
-                line_shape='spline',
-                hovertemplate='<b>O/C:</b> %{y:.2f}<br>' +
-                '<b>SampleType:</b> %{text}<extra></extra>',
-                text=average_data['SampleType']
-            )
+    
             fig.update_layout(
                 title={
                     'text': 'O/C and Sample by Date and SampleType',
@@ -268,14 +263,14 @@ class OCAnalysisDashboard:
                 hoverlabel=dict(
                     bgcolor="white",
                     font_size=16,
-                    font_family="Rockwell",
+                    font_family="Rmckwell",
                     align='left'
                 ),
                 template='seaborn',
                 margin=dict(l=40, r=40, t=40, b=40)
             )
             fig.update_xaxes(rangeslider_thickness=0.02)
-            fig.update_traces(textposition="bottom right")
+            
             return fig
 
         @self.app.callback(
@@ -301,6 +296,6 @@ class OCAnalysisDashboard:
                             for option in LabID_options if option['value'] != 'ALL'],
                         [option['value']
                         for option in testtype_options if option['value'] != 'ALL'],
-                        self.analysis_data['Date_Time_Stmp'].min().date(),
-                        self.analysis_data['Date_Time_Stmp'].max().date())
+                        self.analysis_data['Date_Time'].min().date(),
+                        self.analysis_data['Date_Time'].max().date())
             return dash.no_update
