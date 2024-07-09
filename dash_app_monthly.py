@@ -310,32 +310,49 @@ class DailyReportDashboardMonthly:
             Input('date-picker-Range', 'end_date'),
             prevent_initial_call=True,
         )
-        def func(n_clicks,start_date, end_date):
+        def func(n_clicks, start_date, end_date):
             reshaped_data = update_table(start_date, end_date)
             formatted_df = self.format_dataframe_for_excel(reshaped_data)
             output = io.BytesIO()
             workbook = openpyxl.Workbook()
             worksheet = workbook.active
-            worksheet.title = "Daily Report"
-
-            for r_idx, row in enumerate(dataframe_to_rows(formatted_df, index=False, header=True), 1):
+            worksheet.title = "Mustard Plant Process Report"
+            worksheet.merge_cells('A1:W1')
+            worksheet['A1'].value = "Mustard Plant Process Report"
+            worksheet['A1'].font = Font(bold=True, size=14)
+            worksheet['A1'].alignment = openpyxl.styles.Alignment(
+                horizontal='center')
+            for r_idx, row in enumerate(dataframe_to_rows(formatted_df, index=False, header=True), 2):
                 for c_idx, value in enumerate(row, 1):
-                    worksheet.cell(row=r_idx, column=c_idx, value=value)
+                    cell = worksheet.cell(row=r_idx, column=c_idx, value=value)
+                    cell.border = openpyxl.styles.Border(
+                        left=openpyxl.styles.Side(style='thin'),
+                        right=openpyxl.styles.Side(style='thin'),
+                        top=openpyxl.styles.Side(style='thin'),
+                        bottom=openpyxl.styles.Side(style='thin')
+                    )
 
+            # Merge and style the headers
             for col in range(1, len(formatted_df.columns) + 1):
                 col_letter = get_column_letter(col)
                 header = formatted_df.columns[col - 1]
 
-                worksheet[f'{col_letter}3'].value = header[2]
-                worksheet[f'{col_letter}3'].font = Font(bold=True)
+                worksheet[f'{col_letter}4'].value = header[2]
+                worksheet[f'{col_letter}4'].font = Font(bold=True)
+                worksheet[f'{col_letter}4'].alignment = openpyxl.styles.Alignment(
+                    horizontal='center')
 
                 if header[1]:
-                    worksheet[f'{col_letter}2'].value = header[1]
-                    worksheet[f'{col_letter}2'].font = Font(bold=True)
+                    worksheet[f'{col_letter}3'].value = header[1]
+                    worksheet[f'{col_letter}3'].font = Font(bold=True)
+                    worksheet[f'{col_letter}3'].alignment = openpyxl.styles.Alignment(
+                        horizontal='center')
 
                 if header[0]:
-                    worksheet[f'{col_letter}1'].value = header[0]
-                    worksheet[f'{col_letter}1'].font = Font(bold=True)
+                    worksheet[f'{col_letter}2'].value = header[0]
+                    worksheet[f'{col_letter}2'].font = Font(bold=True)
+                    worksheet[f'{col_letter}2'].alignment = openpyxl.styles.Alignment(
+                        horizontal='center')
 
             primary_headers = ["Mustard Seed",
                                "Mustard Cake", "Mustard Ghani", "KGMO"]
@@ -348,7 +365,9 @@ class DailyReportDashboardMonthly:
                     start_col_letter = get_column_letter(start_col)
                     end_col_letter = get_column_letter(end_col)
                     worksheet.merge_cells(
-                        f'{start_col_letter}1:{end_col_letter}1')
+                        f'{start_col_letter}2:{end_col_letter}2')
+                    worksheet[f'{start_col_letter}2'].alignment = openpyxl.styles.Alignment(
+                        horizontal='center')
 
             for col in range(1, len(formatted_df.columns) + 1):
                 if formatted_df.columns[col - 1][1]:
@@ -360,7 +379,9 @@ class DailyReportDashboardMonthly:
                         start_col_letter = get_column_letter(start_col)
                         end_col_letter = get_column_letter(end_col)
                         worksheet.merge_cells(
-                            f'{start_col_letter}2:{end_col_letter}2')
+                            f'{start_col_letter}3:{end_col_letter}3')
+                        worksheet[f'{start_col_letter}3'].alignment = openpyxl.styles.Alignment(
+                            horizontal='center')
 
             workbook.save(output)
             output.seek(0)

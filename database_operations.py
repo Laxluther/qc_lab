@@ -1,7 +1,7 @@
 
 from datetime import datetime
 from db_connection import get_db_connection
-import mysql.connector
+ 
 from datetime import datetime
 
 

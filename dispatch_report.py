@@ -51,12 +51,12 @@ class DispatchDashboard:
             ("Mustard Cake", "NIR", "O/C"),
             ("Mustard Cake", "MANUAL", "M/C"),
             ("Mustard Cake", "MANUAL", "O/C"),
-            ("PRE MUSTARD SEED", "", "Sample ID"),
-            ("PRE MUSTARD SEED", "NIR", "M/C"),
-            ("PRE MUSTARD SEED", "NIR", "O/C"),
-            ("PRE MUSTARD SEED", "NIR", "FFA"),
-            ("PRE MUSTARD SEED", "MANUAL", "M/C"),
-            ("PRE MUSTARD SEED", "MANUAL", "O/C"),
+            ("Pre Mustard Seed", "", "Sample ID"),
+            ("Pre Mustard Seed", "NIR", "M/C"),
+            ("Pre Mustard Seed", "NIR", "O/C"),
+            ("Pre Mustard Seed", "NIR", "FFA"),
+            ("Pre Mustard Seed", "MANUAL", "M/C"),
+            ("Pre Mustard Seed", "MANUAL", "O/C"),
             ("KGMO", "", "Sample ID"),
             ("KGMO", "MANUAL", "FFA"),
             ("KGMO", "MANUAL", "CLR"),
@@ -82,12 +82,12 @@ class DispatchDashboard:
             'Mustard Cake NIR O/C': round(sum(row['Mustard Cake NIR O/C'] for row in data if row['Mustard Cake NIR O/C'] is not None) / max(1, sum(1 for row in data if row['Mustard Cake NIR O/C'] is not None)), 2),
             'Mustard Cake MANUAL M/C': round(sum(row['Mustard Cake MANUAL M/C'] for row in data if row['Mustard Cake MANUAL M/C'] is not None) / max(1, sum(1 for row in data if row['Mustard Cake MANUAL M/C'] is not None)), 2),
             'Mustard Cake MANUAL O/C': round(sum(row['Mustard Cake MANUAL O/C'] for row in data if row['Mustard Cake MANUAL O/C'] is not None) / max(1, sum(1 for row in data if row['Mustard Cake MANUAL O/C'] is not None)), 2),
-            'PRE MUSTARD SEED Sample ID': sum(1 for row in data if row['PRE MUSTARD SEED Sample ID']),
-            'PRE MUSTARD SEED NIR M/C': round(sum(row['PRE MUSTARD SEED NIR M/C'] for row in data if row['PRE MUSTARD SEED NIR M/C'] is not None) / max(1, sum(1 for row in data if row['PRE MUSTARD SEED NIR M/C'] is not None)), 2),
-            'PRE MUSTARD SEED NIR O/C': round(sum(row['PRE MUSTARD SEED NIR O/C'] for row in data if row['PRE MUSTARD SEED NIR O/C'] is not None) / max(1, sum(1 for row in data if row['PRE MUSTARD SEED NIR O/C'] is not None)), 2),
-            'PRE MUSTARD SEED NIR FFA': round(sum(row['PRE MUSTARD SEED NIR FFA'] for row in data if row['PRE MUSTARD SEED NIR FFA'] is not None) / max(1, sum(1 for row in data if row['PRE MUSTARD SEED NIR FFA'] is not None)), 2),
-            'PRE MUSTARD SEED MANUAL M/C': round(sum(row['PRE MUSTARD SEED MANUAL M/C'] for row in data if row['PRE MUSTARD SEED MANUAL M/C'] is not None) / max(1, sum(1 for row in data if row['PRE MUSTARD SEED MANUAL M/C'] is not None)), 2),
-            'PRE MUSTARD SEED MANUAL O/C': round(sum(row['PRE MUSTARD SEED MANUAL O/C'] for row in data if row['PRE MUSTARD SEED MANUAL O/C'] is not None) / max(1, sum(1 for row in data if row['PRE MUSTARD SEED MANUAL O/C'] is not None)), 2),
+            'Pre Mustard Seed Sample ID': sum(1 for row in data if row['Pre Mustard Seed Sample ID']),
+            'Pre Mustard Seed NIR M/C': round(sum(row['Pre Mustard Seed NIR M/C'] for row in data if row['Pre Mustard Seed NIR M/C'] is not None) / max(1, sum(1 for row in data if row['Pre Mustard Seed NIR M/C'] is not None)), 2),
+            'Pre Mustard Seed NIR O/C': round(sum(row['Pre Mustard Seed NIR O/C'] for row in data if row['Pre Mustard Seed NIR O/C'] is not None) / max(1, sum(1 for row in data if row['Pre Mustard Seed NIR O/C'] is not None)), 2),
+            'Pre Mustard Seed NIR FFA': round(sum(row['Pre Mustard Seed NIR FFA'] for row in data if row['Pre Mustard Seed NIR FFA'] is not None) / max(1, sum(1 for row in data if row['Pre Mustard Seed NIR FFA'] is not None)), 2),
+            'Pre Mustard Seed MANUAL M/C': round(sum(row['Pre Mustard Seed MANUAL M/C'] for row in data if row['Pre Mustard Seed MANUAL M/C'] is not None) / max(1, sum(1 for row in data if row['Pre Mustard Seed MANUAL M/C'] is not None)), 2),
+            'Pre Mustard Seed MANUAL O/C': round(sum(row['Pre Mustard Seed MANUAL O/C'] for row in data if row['Pre Mustard Seed MANUAL O/C'] is not None) / max(1, sum(1 for row in data if row['Pre Mustard Seed MANUAL O/C'] is not None)), 2),
             'KGMO Sample ID': sum(1 for row in data if row['KGMO Sample ID']),
             'KGMO MANUAL FFA': round(sum(row['KGMO MANUAL FFA'] for row in data if row['KGMO MANUAL FFA'] is not None) / max(1, sum(1 for row in data if row['KGMO MANUAL FFA'] is not None)), 2),
             'KGMO MANUAL CLR': round(sum(row['KGMO MANUAL CLR'] for row in data if row['KGMO MANUAL CLR'] is not None) / max(1, sum(1 for row in data if row['KGMO MANUAL CLR'] is not None)), 2),
@@ -122,12 +122,12 @@ class DispatchDashboard:
                     'Mustard Cake NIR O/C': None,
                     'Mustard Cake MANUAL M/C': None,
                     'Mustard Cake MANUAL O/C': None,
-                    'PRE MUSTARD SEED Sample ID': None,
-                    'PRE MUSTARD SEED NIR M/C': None,
-                    'PRE MUSTARD SEED NIR O/C': None,
-                    'PRE MUSTARD SEED NIR FFA': None,
-                    'PRE MUSTARD SEED MANUAL M/C': None,
-                    'PRE MUSTARD SEED MANUAL O/C': None,
+                    'Pre Mustard Seed Sample ID': None,
+                    'Pre Mustard Seed NIR M/C': None,
+                    'Pre Mustard Seed NIR O/C': None,
+                    'Pre Mustard Seed NIR FFA': None,
+                    'Pre Mustard Seed MANUAL M/C': None,
+                    'Pre Mustard Seed MANUAL O/C': None,
                     'KGMO Sample ID': None,
                     'KGMO MANUAL FFA': None,
                     'KGMO MANUAL CLR': None,
@@ -148,14 +148,14 @@ class DispatchDashboard:
                         reshaped_data[key]['Mustard Seed MANUAL FFA'] = row['FFA']
                         reshaped_data[key]['Mustard Seed MANUAL FM'] = row['FM']
                 elif row['SampleType'] == 'PreSample':
-                    reshaped_data[key]['PRE MUSTARD SEED Sample ID'] = row['SampleID']
+                    reshaped_data[key]['Pre Mustard Seed Sample ID'] = row['SampleID']
                     if row['TestType'] == 'NIR':
-                        reshaped_data[key]['PRE MUSTARD SEED NIR M/C'] = row['M_C']
-                        reshaped_data[key]['PRE MUSTARD SEED NIR O/C'] = row['O_C']
-                        reshaped_data[key]['PRE MUSTARD SEED NIR FFA'] = row['FFA']
+                        reshaped_data[key]['Pre Mustard Seed NIR M/C'] = row['M_C']
+                        reshaped_data[key]['Pre Mustard Seed NIR O/C'] = row['O_C']
+                        reshaped_data[key]['Pre Mustard Seed NIR FFA'] = row['FFA']
                     elif row['TestType'] == 'MANUAL':
-                        reshaped_data[key]['PRE MUSTARD SEED MANUAL M/C'] = row['M_C']
-                        reshaped_data[key]['PRE MUSTARD SEED MANUAL O/C'] = row['O_C']
+                        reshaped_data[key]['Pre Mustard Seed MANUAL M/C'] = row['M_C']
+                        reshaped_data[key]['Pre Mustard Seed MANUAL O/C'] = row['O_C']
             elif row['Material'] == 'MUSTARD CAKE':
                 reshaped_data[key]['Mustard Cake Sample ID'] = row['SampleID']
                 if row['TestType'] == 'NIR':
@@ -207,18 +207,18 @@ class DispatchDashboard:
                 "id": "Mustard Cake MANUAL M/C"},
             {"name": ["Mustard Cake", "MANUAL", "O/C"],
                 "id": "Mustard Cake MANUAL O/C"},
-            {"name": ["PRE MUSTARD SEED", "", "Sample ID"],
-                "id": "PRE MUSTARD SEED Sample ID"},
-            {"name": ["PRE MUSTARD SEED", "NIR", "M/C"],
-                "id": "PRE MUSTARD SEED NIR M/C"},
-            {"name": ["PRE MUSTARD SEED", "NIR", "O/C"],
-                "id": "PRE MUSTARD SEED NIR O/C"},
-            {"name": ["PRE MUSTARD SEED", "NIR", "FFA"],
-                "id": "PRE MUSTARD SEED NIR FFA"},
-            {"name": ["PRE MUSTARD SEED", "MANUAL", "M/C"],
-                "id": "PRE MUSTARD SEED MANUAL M/C"},
-            {"name": ["PRE MUSTARD SEED", "MANUAL", "O/C"],
-                "id": "PRE MUSTARD SEED MANUAL O/C"},
+            {"name": ["Pre Mustard Seed", "", "Sample ID"],
+                "id": "Pre Mustard Seed Sample ID"},
+            {"name": ["Pre Mustard Seed", "NIR", "M/C"],
+                "id": "Pre Mustard Seed NIR M/C"},
+            {"name": ["Pre Mustard Seed", "NIR", "O/C"],
+                "id": "Pre Mustard Seed NIR O/C"},
+            {"name": ["Pre Mustard Seed", "NIR", "FFA"],
+                "id": "Pre Mustard Seed NIR FFA"},
+            {"name": ["Pre Mustard Seed", "MANUAL", "M/C"],
+                "id": "Pre Mustard Seed MANUAL M/C"},
+            {"name": ["Pre Mustard Seed", "MANUAL", "O/C"],
+                "id": "Pre Mustard Seed MANUAL O/C"},
             {"name": ["KGMO", "", "Sample ID"], "id": "KGMO Sample ID"},
             {"name": ["KGMO", "MANUAL", "FFA"], "id": "KGMO MANUAL FFA"},
             {"name": ["KGMO", "MANUAL", "CLR"], "id": "KGMO MANUAL CLR"},
@@ -324,17 +324,22 @@ class DispatchDashboard:
             State('date-picker-single', 'date'),
             prevent_initial_call=True,
         )
-        def func(n_clicks,date):
+        def func(n_clicks, date):
             reshaped_data = update_table(date)
             formatted_df = self.format_dataframe_for_excel(reshaped_data)
             
             output = io.BytesIO()
             workbook = openpyxl.Workbook()
             worksheet = workbook.active
-            worksheet.title = "Daily Report"
+            worksheet.title = "Daily Mustard Plant Process Report"
             
-           
-            for r_idx, row in enumerate(dataframe_to_rows(formatted_df, index=False, header=True), 1):
+            # Add primary header
+            worksheet.merge_cells('A1:W1')
+            worksheet['A1'].value = "Daily Mustard Plant Process Report"
+            worksheet['A1'].font = Font(bold=True, size=14)
+            worksheet['A1'].alignment = openpyxl.styles.Alignment(horizontal='center')
+            
+            for r_idx, row in enumerate(dataframe_to_rows(formatted_df, index=False, header=True), 2):
                 for c_idx, value in enumerate(row, 1):
                     worksheet.cell(row=r_idx, column=c_idx, value=value)
             
@@ -343,28 +348,26 @@ class DispatchDashboard:
                 col_letter = get_column_letter(col)
                 header = formatted_df.columns[col - 1]
                 
-                worksheet[f'{col_letter}3'].value = header[2]
-                worksheet[f'{col_letter}3'].font = Font(bold=True)
+                worksheet[f'{col_letter}4'].value = header[2]
+                worksheet[f'{col_letter}4'].font = Font(bold=True)
                 
                 if header[1]:
-                    worksheet[f'{col_letter}2'].value = header[1]
-                    worksheet[f'{col_letter}2'].font = Font(bold=True)
+                    worksheet[f'{col_letter}3'].value = header[1]
+                    worksheet[f'{col_letter}3'].font = Font(bold=True)
                 
                 if header[0]:
-                    worksheet[f'{col_letter}1'].value = header[0]
-                    worksheet[f'{col_letter}1'].font = Font(bold=True)
+                    worksheet[f'{col_letter}2'].value = header[0]
+                    worksheet[f'{col_letter}2'].font = Font(bold=True)
             
-            
-            primary_headers = ["Mustard Seed", "Mustard Cake", "Mustard Ghani", "KGMO"]
+            primary_headers = ["Mustard Seed", "Mustard Cake", "Pre Mustard Seed", "KGMO"]
             for header in primary_headers:
                 start_col = formatted_df.columns.get_loc((header, '', 'Sample ID')) + 1
                 end_col = start_col + sum((formatted_df.columns.get_level_values(0) == header)) - 1
                 if start_col != end_col:
                     start_col_letter = get_column_letter(start_col)
                     end_col_letter = get_column_letter(end_col)
-                    worksheet.merge_cells(f'{start_col_letter}1:{end_col_letter}1')
+                    worksheet.merge_cells(f'{start_col_letter}2:{end_col_letter}2')
             
-           
             for col in range(1, len(formatted_df.columns) + 1):
                 if formatted_df.columns[col - 1][1]:
                     start_col = col
@@ -374,11 +377,11 @@ class DispatchDashboard:
                     if start_col != end_col:
                         start_col_letter = get_column_letter(start_col)
                         end_col_letter = get_column_letter(end_col)
-                        worksheet.merge_cells(f'{start_col_letter}2:{end_col_letter}2')
+                        worksheet.merge_cells(f'{start_col_letter}3:{end_col_letter}3')
             
             workbook.save(output)
             output.seek(0)
-            return dcc.send_bytes(output.getvalue(), "daily_report.xlsx")
+            return dcc.send_bytes(output.getvalue(), "daily_report.xlsx") 
         @self.app.callback(
             Output('table', 'data'),
             [Input('date-picker-single', 'date')]
