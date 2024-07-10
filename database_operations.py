@@ -156,11 +156,24 @@ class DatabaseOperations:
     def get_data(self):
         conn = self.get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM analysisreg ORDER BY SampleID DESC LIMIT 10 ")
+        cursor.execute("""SELECT * FROM analysisreg 
+                       WHERE  DATE(DATE_Time_Stmp) = CURDATE()
+                       ORDER BY SampleID DESC """)
         data = cursor.fetchall()
         conn.close()
          
         return data
+    def get_data_sam(self):
+        conn = self.get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""SELECT * FROM samplereg 
+                       WHERE  DATE(Date_Time_Stmp) = CURDATE()
+                       ORDER BY SampleID DESC """)
+        data = cursor.fetchall()
+        conn.close()
+         
+        return data
+
 
     def get_sample_id(self):
         conn = self.get_db_connection()

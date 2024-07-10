@@ -236,6 +236,38 @@
             />
           </div>
         </form>
+        
+      </div>
+      <div id="last_data">
+        <table id="sampleDataTable">
+          <h3>Today's sample enteries</h3>
+          <thead>
+            <tr>
+              <th>SampleID</th>
+              <th>SamplerID</th>
+              <th>Date/time</th>
+              <th>LabID</th>
+              <th>UserID</th>
+              <th>Material</th>
+              <th>SampleType</th>
+              <th>PartyName</th>
+              <th>BatchID</th>
+              <th>SmplPt</th>
+              <th>QtyMt</th>
+              <th>Test</th>
+              <th>Parameter1</th>
+              <th>Parameter2</th>
+              <th>Parameter3</th>
+              <th>Parameter4</th>
+              <th>Parameter5</th>
+              <th>Parameter6</th>
+              <th>Datetimestmp</th>
+            </tr>
+          </thead>
+          <tbody>
+             
+          </tbody>
+        </table>
       </div>
     </div>
     <script>
@@ -693,6 +725,55 @@
           });
         });
       });
+      $(document).ready(function () {
+        fetch("/fetch_data_sam")
+          .then((response) => {
+            // console.log('Response Status:', response.status);  // Debug log
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.error) {
+              console.error("Error fetching data:", data.error);
+              return;
+            }
+            const tableBody = $("#sampleDataTable tbody");
+            tableBody.empty();
+            data.forEach((row) => {
+              const tableRow = `
+                                <tr>
+                                    <td>${row.SampleID || ""}</td>
+                                    <td>${row.SamplerID || ""}</td>
+                                    <td>${row.Date_time || ""}</td>
+                                    <td>${row.LabID || ""}</td>
+                                    <td>${row.UserID || ""}</td>
+                                    <td>${row.Material || ""}</td>
+                                    <td>${row.SampleType || ""}</td>
+                                    <td>${row.PartyName || ""}</td>
+                                    <td>${row.BatchID_VhNo || ""}</td>
+                                    <td>${row.SmplPt || ""}</td>
+                                    <td>${row.QtyMt || ""}</td>
+                                    <td>${row.Test_RQMT || ""}</td>
+                                    <td>${row.Parameter_1 || ""}</td>
+                                    <td>${row.Parameter_2 || ""}</td>
+                                    <td>${row.Parameter_3 || ""}</td>
+                                    <td>${row.Parameter_4 || ""}</td>
+                                    <td>${row.Parameter_5 || ""}</td>
+                                    <td>${row.Parameter_6 || ""}</td>
+                                    <td>${row.Date_time_stmp || ""}</td>
+                                </tr>`;
+              tableBody.append(tableRow);
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      });
     </script>
+       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   </body>
 </html>

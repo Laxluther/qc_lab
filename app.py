@@ -8,6 +8,9 @@ from dash_app_monthly import DailyReportDashboardMonthly
 from dispatch_report import DispatchDashboard
 from comb import CombinedDashboard
 from monthlyDispatch import DispatchMonthly
+from sampleReg import SampleRegister
+from analysisReg import AnalysisRegister
+
 app = Flask(__name__)
 app.secret_key = '28'
 
@@ -47,6 +50,13 @@ def report():
     if 'user' in session:
         user_name = db_ops.get_user_name(session['user']).title()
         return render_template('reports.html', username=user_name)
+    else:
+        return redirect(url_for('login'))
+@app.route('/register')
+def register():
+    if 'user' in session:
+        user_name = db_ops.get_user_name(session['user']).title()
+        return render_template('register.html', username=user_name)
     else:
         return redirect(url_for('login'))
 
@@ -207,7 +217,38 @@ def fetch_data():
         return jsonify(formatted_data)
     else:
         return jsonify({"error": "No data found for Sample ID"}), 404
-
+@app.route('/fetch_data_sam')
+def fetch_data_sam():
+    data = db_ops.get_data_sam()
+    if data:
+        formatted_data = [
+            {
+                "SampleID": row[0],
+                "SamplerID": row[1],
+                "Date_time": row[2],
+                "LabID": row[3],
+                "UserID": row[4],
+                "Material": row[5],
+                "SampleType": row[6],
+                "PartyName": row[7],
+                "BatchID_VhNo": row[8],
+                "SmplPt": row[9],
+                "QtyMt": row[10],
+                "Test_RQMT": row[11],
+                "Parameter_1": row[12],
+                "Parameter_2": row[13],
+                "Parameter_3": row[14],
+                "Parameter_4": row[15],
+                "Parameter_5": row[16],
+                "Parameter_6": row[17],
+                "Date_time_stmp": row[18].strftime("%Y-%m-%d %H:%M:%S")
+            }
+            for row in data
+        ]
+         
+        return jsonify(formatted_data)
+    else:
+        return jsonify({"error": "No data found for Sample ID"}), 404
 @app.route('/submit_sample', methods=['POST'])
 def submit_form():
     conn = get_db_connection()
@@ -338,5 +379,8 @@ dash_app_monthly = DailyReportDashboardMonthly(app)
 dispatch_dashboard = DispatchDashboard(app)
 plot_app = CombinedDashboard(app)
 dispatch_monthly = DispatchMonthly(app)
+sample_register = SampleRegister(app)
+analysis_register = AnalysisRegister(app)
+
 if __name__ == '__main__':
     app.run(debug=True)

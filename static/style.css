@@ -14,7 +14,36 @@ body {
   height: 100vh;
   margin: 0;
 }
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 100%;
+}
 
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  background-color: transparent;
+  
+}
+ 
+th {
+  background-color: transparent;
+}
+
+#sampleDataTable th {
+  color: white;
+   
+}
+
+#sampleDataTable td {
+  color: white;
+   
+}
+
+ 
 .top-header {
   position: fixed;
   top: 0;
@@ -139,7 +168,10 @@ nav .wrapper {
   .wrapper .logo a {
     font-size: 20px;
   }
+  #last_data {
+    display: none;
 
+  }
   .nav-links {
     margin-top: 0;
     display: none;
@@ -547,7 +579,10 @@ input[type="number"][title]:hover::before {
   .parameters-group>div {
     flex: 1;
   }
+  #last_data {
+    display: none;
 
+  }
   .form-row_1 {
     display: grid;
     grid-template-columns: auto auto auto auto 1fr !important;
@@ -647,7 +682,10 @@ input[type="number"][title]:hover::before {
     padding: 0 5%;
     margin-bottom: 20px;
   }
+  #last_data {
+    display: none;
 
+  }
   .form-row_1,
   .form-row_2,
   .form-row_3,
